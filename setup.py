@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 from glob import glob
 
-package_name = 'mini_tank_ROS2'
+package_name = 'mini_tank_ros2'
 
 setup(
     name=package_name,
@@ -24,9 +24,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'tank_driver = mini_tank_ROS2.tank_driver:main',
-            'video_subscriber = mini_tank_ROS2.video_subscriber:main',
-            'joystick_driver = mini_tank_ROS2.joystick_driver:main',
+            'tank_driver = mini_tank_ros2.tank_driver:main',
+            'video_subscriber = mini_tank_ros2.video_subscriber:main',
+            'joystick_driver = mini_tank_ros2.joystick_driver:main',
         ],
     },
 )
