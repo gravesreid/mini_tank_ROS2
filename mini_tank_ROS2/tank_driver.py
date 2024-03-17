@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 
 class Driver(Node):
 
-    def __init__(self, port='/dev/ttyACM0'):  # Adjust port as necessary
+    def __init__(self, port='/dev/ttyUSB0'):  # Adjust port as necessary
         super().__init__('cmd_vel_listener')
         self.ser = serial.Serial(
             port=port,

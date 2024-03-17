@@ -5,7 +5,7 @@ from sensor_msgs.msg import Joy
 
 class Driver(Node):
 
-    def __init__(self, port='/dev/ttyACM0'):  # Adjust port as necessary
+    def __init__(self, port='/dev/ttyUSB0'):  # Adjust port as necessary
         super().__init__('joy_listener')
         self.ser = serial.Serial(
             port=port,
@@ -24,13 +24,13 @@ class Driver(Node):
     def callback(self, msg):
         # Interpreting joystick axis for movement commands
         if msg.axes[1] > 0:
-            self.serialWrite('back')
-        elif msg.axes[1] < 0:
             self.serialWrite('forward')
+        elif msg.axes[1] < 0:
+            self.serialWrite('back')
         elif msg.axes[0] > 0:
-            self.serialWrite('right')
-        elif msg.axes[0] < 0:
             self.serialWrite('left')
+        elif msg.axes[0] < 0:
+            self.serialWrite('right')
         else:
             self.serialWrite('stop')  # Default to stop if no clear direction
 
