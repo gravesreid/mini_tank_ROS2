@@ -23,13 +23,13 @@ class Driver(Node):
 
     def callback(self, msg):
         # Interpreting joystick axis for movement commands
-        if msg.axes[1] > 0:
+        if msg.axes[0] > 0:
             self.serialWrite('forward')
-        elif msg.axes[1] < 0:
-            self.serialWrite('back')
-        elif msg.axes[0] > 0:
-            self.serialWrite('left')
         elif msg.axes[0] < 0:
+            self.serialWrite('back')
+        elif msg.axes[1] > 0:
+            self.serialWrite('left')
+        elif msg.axes[1] < 0:
             self.serialWrite('right')
         else:
             self.serialWrite('stop')  # Default to stop if no clear direction
