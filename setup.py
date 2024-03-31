@@ -27,6 +27,9 @@ setup(
             'tank_driver = mini_tank_ros2.tank_driver:main',
             'video_subscriber = mini_tank_ros2.video_subscriber:main',
             'joystick_driver = mini_tank_ros2.joystick_driver:main',
+            'object_detection_driver = mini_tank_ros2.object_detection_driver:main',
+            'object_detection_subscriber = mini_tank_ros2.object_detection_subscriber:main',
+            'image_save_subscriber = mini_tank_ros2.image_save_subscriber:main',
         ],
     },
 )
