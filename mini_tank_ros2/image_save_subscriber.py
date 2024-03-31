@@ -10,7 +10,7 @@ class Save_Image(Node):
     def __init__(self):
         super().__init__('image_subscriber')
         self.bridge = CvBridge()
-        self.base_directory_p = r'/home/reid/projects/mobot_race/16_mar_photos/photos_1'
+        self.base_directory_p = r'/home/reid/projects/mobot_race/31_mar_photos/photos_1'
         os.makedirs(self.base_directory_p, exist_ok=True)  # Ensure the directories exist
         self.frame_counter_p = 0
         # self.prev_button_state = [0, 0]  # Initialize previous button state
