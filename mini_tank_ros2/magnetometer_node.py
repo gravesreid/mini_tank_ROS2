@@ -1,14 +1,11 @@
 import rclpy
 from rclpy.node import Node
-import sys
-import os
 import time
-from bmm150 import *
-from sensor_msgs.msg import MagneticField
-from geometry_msgs.msg import Vector3
+from bmm150 import bmm150_I2C  # Assuming you have this module for interfacing with the sensor.
+from std_msgs.msg import Float64  # Import Float64 message type.
 
 I2C_BUS = 0x01  # default use I2C1
-ADDRESS_3 = 0x13  # (CSB:1 SDO:1) default i2c address
+ADDRESS_3 = 0x13  # (CSB:1 SDO:1) default I2C address
 
 class Bmm150Node(Node):
     def __init__(self):
@@ -17,8 +14,8 @@ class Bmm150Node(Node):
         self.timer = self.create_timer(self.timer_period, self.loop)
         self.bmm150 = bmm150_I2C(I2C_BUS, ADDRESS_3)
         
-        # Create a publisher
-        self.publisher_ = self.create_publisher(MagneticField, 'magnetometer', 10)
+        # Create a publisher for Float64 message type.
+        self.publisher_ = self.create_publisher(Float64, 'compass_degree', 10)
         
         self.setup()
 
@@ -31,19 +28,35 @@ class Bmm150Node(Node):
         self.bmm150.set_rate(self.bmm150.RATE_10HZ)
         self.bmm150.set_measurement_xyz()
 
-    def loop(self):
+        # Zero the sensor
+        for i in range(10):
+            self.get_heading()
+            time.sleep(0.1)
+
+    def read_sensor(self):
         geomagnetic = self.bmm150.get_geomagnetic()
-        magnetic_field_msg = MagneticField()
-        magnetic_field_msg.magnetic_field = Vector3(x=float(geomagnetic[0]), y=float(geomagnetic[1]), z=float(geomagnetic[2]))
-        # Since the MagneticField message also contains a header, we should populate it
-        magnetic_field_msg.header.stamp = self.get_clock().now().to_msg()
-        magnetic_field_msg.header.frame_id = "magnetometer_link"  # This should be the frame ID relevant to your setup
+        degree = self.bmm150.get_compass_degree()
+        return degree, geomagnetic
+    
+    def get_heading(self):
+        degree, _ = self.read_sensor()
+        if degree > 180:
+            degree -= 360
+        return degree
+    
+    def loop(self):
+        degree, _ = self.read_sensor()
+        
+        # Create a Float64 message for the degree.
+        degree_msg = Float64()
+        degree_msg.data = degree
         
         # Publish the message
-        self.publisher_.publish(magnetic_field_msg)
-        self.get_logger().info(f"Published magnetometer data: {geomagnetic[0]}, {geomagnetic[1]}, {geomagnetic[2]}")
+        self.publisher_.publish(degree_msg)
+        self.get_logger().info(f"Published compass degree: {degree}")
 
         time.sleep(0.1)
+    
 
 def main(args=None):
     rclpy.init(args=args)
@@ -58,5 +71,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
 
 
