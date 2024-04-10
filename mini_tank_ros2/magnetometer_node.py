@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 import time
-from bmm150 import bmm150_I2C  # Assuming you have this module for interfacing with the sensor.
+from src.bmm150 import bmm150_I2C  # Assuming you have this module for interfacing with the sensor.
 from std_msgs.msg import Float64  # Import Float64 message type.
 
 I2C_BUS = 0x01  # default use I2C1
