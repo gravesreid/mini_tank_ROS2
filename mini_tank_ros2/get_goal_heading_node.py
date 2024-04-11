@@ -15,7 +15,7 @@ import math
 
 
 
-class Driver(Node):
+class Goal_Heading(Node):
 
     def __init__(self):
         super().__init__('yolo_listener')
@@ -81,9 +81,9 @@ class Driver(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    driver = Driver()
-    rclpy.spin(driver)
-    driver.destroy_node()
+    goal_heading = Goal_Heading()
+    rclpy.spin(goal_heading)
+    goal_heading.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
