@@ -25,7 +25,7 @@ def generate_launch_description():
         ),
         Node(
             package = 'mini_tank_ros2',
-            executable='mag_control_node',
+            executable='mag_controller_node',
             name='mag_control_node',
             output='screen'
         ),
