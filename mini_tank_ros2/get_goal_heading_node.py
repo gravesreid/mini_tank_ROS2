@@ -23,19 +23,24 @@ class Goal_Heading(Node):
             Detection,
             '/detection_topic',
             self.detection_callback,
-            10)
+            1)
         self.compass_subscription = self.create_subscription(
             Float64,
             '/compass_degree',
             self.compass_callback,
-            10)
-        self.desired_heading_publisher = self.create_publisher(Float64, 'desired_heading', 10)
+            1)
+        self.desired_heading_publisher = self.create_publisher(
+            Float64, 
+            'desired_heading', 
+            1)
 
         self.publish_rate = 10.0
         self.timer = self.create_timer(1.0 / self.publish_rate, self.timer_callback)
 
         self.angle = 0
         self.compass_degree = 0
+
+        self.camera_angle = 70.0
 
 
 
@@ -56,7 +61,9 @@ class Goal_Heading(Node):
 
         # get angle between the robot and the goal
         if self.path_list:
-            self.angle = math.degrees(math.atan2(1 - self.path_list[0][1], self.path_list[0][0]))
+            self.angle = self.camera_angle * (self.path_list[0][0] - 0.5) 
+            # get the desired heading
+            self.desired_heading = self.wrap_angle(self.angle + self.compass_degree) 
         else:
             self.get_logger().info("No path detected")
 
@@ -64,8 +71,6 @@ class Goal_Heading(Node):
         self.get_logger().info("Received a /compass_degree message!")
         self.compass_degree = msg.data
 
-        # get the desired heading
-        self.desired_heading = self.wrap_angle(self.angle - self.compass_degree)
         
     def wrap_angle(self, angle):
         return (angle + 180) % 360 - 180
