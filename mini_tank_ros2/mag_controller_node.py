@@ -36,7 +36,7 @@ class Controller(Node):
         )
 
         self.compass_degree = 0
-        self.desired_heading = 0
+        self.desired_heading = 1000
 
         # PID parameters
         self.kp = 1
@@ -55,8 +55,10 @@ class Controller(Node):
         self.get_logger().info("Received a /desired_heading message!")
 
     def serialWrite(self, command):
-        # Simplified method to send commands
-        self.ser.write((command + '\n').encode())
+        if self.desired_angle == 1000:
+            self.ser.write('0,0\n')
+        else:
+            self.ser.write((command + '\n').encode())
 
     def pid_controller(self):
         error = self.desired_heading - self.compass_degree
