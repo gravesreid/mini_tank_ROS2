@@ -33,6 +33,7 @@ setup(
             'robot_object_detection_subscriber = mini_tank_ros2.robot_object_detection_subscriber:main',
             'magnetometer_node = mini_tank_ros2.magnetometer_node:main',
             'mag_controller_node = mini_tank_ros2.mag_controller_node:main',
+            'get_goal_heading_node = mini_tank_ros2.get_goal_heading_node:main',
         ],
     },
 )
