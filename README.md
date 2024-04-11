@@ -16,6 +16,11 @@ docker ps
 docker exec -it elegant_fox /bin/bash
 ```
 
+# save the docker container 
+```bash
+docke commit elegant_fox
+```
+
 # Run a ros2 launch file
 ```bash
 ros2 launch mini_tank_ros2 your_launch_file_name
