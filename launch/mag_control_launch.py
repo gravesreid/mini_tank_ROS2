@@ -4,8 +4,8 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='mini_tank_ros2',
-            executable='v4l2_camera',
+            package='v4l2_camera',
+            executable='v4l2_camera_node',
             name='camera',
             output='screen',
             parameters=[
