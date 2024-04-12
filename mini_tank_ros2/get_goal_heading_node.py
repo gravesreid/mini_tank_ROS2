@@ -61,7 +61,7 @@ class Goal_Heading(Node):
 
         # get angle between the robot and the goal
         if self.path_list:
-            self.angle = self.camera_angle * (self.path_list[0][0] - 0.5) 
+            self.angle = self.camera_angle * (0.5 - self.path_list[0][0]) 
             # get the desired heading
             self.desired_heading = self.wrap_angle(self.angle + self.compass_degree) 
         else:
