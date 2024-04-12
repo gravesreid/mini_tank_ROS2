@@ -39,7 +39,7 @@ class Controller(Node):
         self.desired_heading = 1000
 
         # PID parameters
-        self.kp = 1
+        self.kp = 10
         self.ki = 0
         self.kd = 0
         self.integral = 0
@@ -78,7 +78,7 @@ class Controller(Node):
     
     def calculate_motor_commands(self, pid_output):
         motor_left = max(min(255, 255 - pid_output), -255)
-        motor_right = max(min(255, 255 + pid_output), -255)
+        motor_right = max(min(255, 240 + pid_output), -255)
         return f'{motor_left} {motor_right}'
 
 

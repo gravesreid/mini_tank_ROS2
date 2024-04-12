@@ -55,7 +55,7 @@ class Bmm150Node(Node):
         self.publisher_.publish(degree_msg)
         self.get_logger().info(f"Published compass degree: {degree}")
 
-        time.sleep(0.1)
+        time.sleep(0.05)
     
 
 def main(args=None):
