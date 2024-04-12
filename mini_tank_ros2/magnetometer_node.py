@@ -40,9 +40,13 @@ class Bmm150Node(Node):
     
     def get_heading(self):
         degree, _ = self.read_sensor()
-        if degree > 180:
-            degree -= 360
+        degree -= 165
+        degree = self.wrap_angle(degree)
         return degree
+    
+    def wrap_angle(self, angle):
+        return (angle +180) %360 - 180
+
     
     def loop(self):
         degree, _ = self.read_sensor()

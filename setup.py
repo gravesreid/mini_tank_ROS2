@@ -34,6 +34,7 @@ setup(
             'magnetometer_node = mini_tank_ros2.magnetometer_node:main',
             'mag_controller_node = mini_tank_ros2.mag_controller_node:main',
             'get_goal_heading_node = mini_tank_ros2.get_goal_heading_node:main',
+            'brightness_controller_node = mini_tank_ros2.brightness_controller_node:main',
         ],
     },
 )
