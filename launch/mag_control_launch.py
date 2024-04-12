@@ -19,12 +19,6 @@ def generate_launch_description():
         ),
         Node(
             package = 'mini_tank_ros2',
-            executable = 'robot_object_detection_subscriber',
-            name = 'robot_object_detection_subscriber',
-            output = 'screen'
-        ),
-        Node(
-            package = 'mini_tank_ros2',
             executable='mag_controller_node',
             name='mag_control_node',
             output='screen'
@@ -41,4 +35,10 @@ def generate_launch_description():
             name='get_goal_heading_node',
             output='screen'
         ),
+        Node(
+            package='mini_tank_ros2',
+            executable='brightness_controller_node',
+            name='brightness_controller',
+            output='screen'
+        )
     ])
